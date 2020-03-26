@@ -31,5 +31,21 @@
         <servlet-name>SBI_Local_Transaction</servlet-name>
         <url-pattern>/sbi_local_transaction</url-pattern>
     </servlet-mapping>
+    
+    <servlet>
+        <servlet-name>SBI_Logout</servlet-name>
+        <servlet-class>com.sbi.SBI_Logout</servlet-class>
+    </servlet>
+    
+    <servlet-mapping>
+        <servlet-name>SBI_Logout</servlet-name>
+        <url-pattern>/sbi_logout</url-pattern>
+    </servlet-mapping>
+    
+    
+    
+    <listener>
+        <listener-class>com.sbi.SBI_Listener</listener-class>
+    </listener>
 
 </web-app>
