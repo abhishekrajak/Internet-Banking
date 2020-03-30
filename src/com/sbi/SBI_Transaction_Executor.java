@@ -91,6 +91,7 @@ public class SBI_Transaction_Executor {
     public static synchronized SBI_DAO generateData(String username, String password, boolean isTestedBefore) throws Exception{
         SBI_DAO sbi_dao = null;
         try {
+            System.out.println("trying database for " + username);
             Class.forName("oracle.jdbc.driver.OracleDriver");
             Connection connection = DriverManager.getConnection(base_url.dbms_url, "c##SBI", "XXXXX");
             Statement statement = connection.createStatement();
@@ -98,7 +99,7 @@ public class SBI_Transaction_Executor {
             if(!isTestedBefore){
                 sql = "select * from customers where username = '" + username + "' and password = '" + password + "'" ;
             }else{
-                sql ="select * from customers where username = '" + username;
+                sql = "select * from customers where username = '" + username + "'";
             }
             ResultSet resultSet = statement.executeQuery(sql);
             String Username = null;

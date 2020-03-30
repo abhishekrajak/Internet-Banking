@@ -11,6 +11,7 @@
     try {
         sbi_dao = SBI_Transaction_Executor.generateData(sbi_dao.getUsername(), null, true);
     } catch (Exception e) {
+        System.out.println("Inside catch of SBI_Update");
         e.printStackTrace();
     }
     session.setAttribute("sbi_dao", sbi_dao);

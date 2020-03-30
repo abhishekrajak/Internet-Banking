@@ -12,6 +12,7 @@ import java.io.IOException;
 public class SBI_Logout extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.getSession().setAttribute("sbi_dao", null);
+        request.getSession().invalidate();
         RequestDispatcher requestDispatcher = request.getRequestDispatcher("sbi.jsp");
         requestDispatcher.forward(request, response);
     }
