@@ -1,5 +1,7 @@
 package com.sbi;
 
+import java.sql.Date;
+
 public class Customer
 {
     String firstName;
@@ -10,7 +12,7 @@ public class Customer
     String address;
     String email;
     String dateOfBirth;
-//    String accountNo;
+
     String password;
     String username;
     double balance;
@@ -24,8 +26,7 @@ public class Customer
         phoneNo = phno;
         address= addr;
         email = eml;
-        dateOfBirth =dob;
-//        accountNo = acno;
+        dateOfBirth = dob;
         password = pwd;
         balance = bal;
     }
@@ -62,10 +63,7 @@ public class Customer
     {
         dateOfBirth = data;
     }
-//    public void setAccountNo(String data)
-//    {
-//        accountNo = data;
-//    }
+
     public void setPassword(String data)
     {
         password = data;
@@ -111,10 +109,7 @@ public class Customer
     {
         return dateOfBirth;
     }
-//    public String getAccountNo()
-//    {
-//        return accountNo;
-//    }
+
     public String getPassword()
     {
         return password;
@@ -123,8 +118,5 @@ public class Customer
     {
         return username;
     }
-    public double getBalance()
-    {
-        return balance;
-    }
+    public double getBalance() { return balance; }
 }

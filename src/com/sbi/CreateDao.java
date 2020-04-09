@@ -2,7 +2,9 @@ package com.sbi;
 
 import java.sql.*;
 import java.sql.DriverManager;
-
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 public class CreateDao 
 {
@@ -14,7 +16,7 @@ public class CreateDao
 		{
 			Class.forName("oracle.jdbc.driver.OracleDriver");
 
-			String customerQuery = "insert into customers values (?, ?, ?, ?, ?)";
+			String customerQuery = "insert into customers values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
 			if(c.getMiddleName() == null) {
 				c.setMiddlename("-");
@@ -36,6 +38,24 @@ public class CreateDao
 			ps.setString(3, String.valueOf(c.getBalance()));
 			ps.setString(4, c.getPassword());
 			ps.setString(5, (accountNo = String.valueOf(String.format("%05d", count))));
+			ps.setString(6, c.getEmail());
+			ps.setString(7, c.getAddress());
+			ps.setString(8, c.getGender());
+			ps.setString(9, c.getPhoneNo());
+
+			System.out.println("original : " + c.getDateOfBirth());
+			DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+			Date date = dateFormat.parse(c.getDateOfBirth());
+
+			System.out.println("date : " + date.toString());
+
+			DateFormat requiredDateFormat = new SimpleDateFormat("dd-MM-yyyy");
+			String dob = requiredDateFormat.format(date);
+
+			System.out.println(dob);
+			c.setDateOfBirth(dob);
+			ps.setString(10, dob);
+
 			int i = ps.executeUpdate();
 		
 			if(i == 1)
@@ -50,6 +70,4 @@ public class CreateDao
 	public String getAccountNo(){
 		return accountNo;
 	}
-	
-	
 }

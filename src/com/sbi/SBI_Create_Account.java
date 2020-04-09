@@ -25,14 +25,13 @@ public class SBI_Create_Account extends HttpServlet {
         Customer c = new Customer(fname,mname,lname,gdr,phno,addr,eml,dob,pwd,bal);
         CreateDao cd = new CreateDao();
         if(cd.check(c)) {
-            response.sendRedirect("create_account_successful.jsp");
             HttpSession session = request.getSession();
-            ((HttpSession) session).setAttribute("username", c.getUsername());
+            session.setAttribute("username", c.getUsername());
             session.setAttribute("accountNo", cd.getAccountNo());
+            response.sendRedirect("create_account_successful.jsp");
         }
         else{
             response.sendRedirect("create_account.jsp");
         }
-
     }
 }

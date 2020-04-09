@@ -31,6 +31,8 @@ Account Created Successfully....<br>
 <%
     String username = (String)session.getAttribute("username");
     String accountNo = (String)session.getAttribute("accountNo");
+    session.removeAttribute("username");
+    session.removeAttribute("accountNo");
 %>
     username : <%=username%><br>
     account no. : <%=accountNo%><br>
