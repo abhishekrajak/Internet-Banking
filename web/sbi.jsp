@@ -44,7 +44,7 @@
         Password <input id="password" name="password" type="password"><br>
         <input id="Submit" name="Submit" type="submit">
     </form>
-
+    <a href="create_account.jsp">Create Account</a>
     <%
         }
     %>

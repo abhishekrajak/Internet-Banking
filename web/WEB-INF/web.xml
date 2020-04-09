@@ -42,6 +42,16 @@
         <url-pattern>/sbi_logout</url-pattern>
     </servlet-mapping>
     
+    <servlet>
+        <servlet-name>sbi_create_account</servlet-name>
+        <servlet-class>com.sbi.SBI_Create_Account</servlet-class>
+    </servlet>
+    
+    <servlet-mapping>
+        <servlet-name>sbi_create_account</servlet-name>
+        <url-pattern>/sbi_create_account</url-pattern>
+    </servlet-mapping>
+    
     
     
     <listener>

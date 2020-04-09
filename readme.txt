@@ -7,3 +7,7 @@
 # Login page is working fine.
 
 # Currently working on intra-bank transfer.
+
+# intra-bank transfer done
+
+# working on transaction management and inter-bank transfer

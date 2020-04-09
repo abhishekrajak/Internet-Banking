@@ -48,7 +48,7 @@
     %>
     Username :  <%=sbi_dao.getUsername()%><br>
     Name : <%=sbi_dao.getName()%><br>
-    Account No. : <%=sbi_dao.getAccount_number()%><br>
+    Account No. : <%=String.format("%05d", sbi_dao.getAccount_number())%><br>
     Balance : <span id="message"><%=sbi_dao.getBalance()%></span><br>
     Update balance click <button type="button" id="update" onclick="ajaxAsyncRequest()">here</button><br>
     To make transaction click <a href="sbi_transaction.jsp">here</a><br>
