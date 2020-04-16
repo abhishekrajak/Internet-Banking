@@ -26,6 +26,8 @@
             transfer.disabled = false;
         }
     }
+
+
 </script>
 <body onload="initialise()">
     <%

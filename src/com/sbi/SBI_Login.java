@@ -19,7 +19,7 @@ public class SBI_Login extends HttpServlet {
         String password = request.getParameter("password");
 
         System.out.println("generating sbi login");
-        SBI_DAO sbi_dao = null;
+        SBI_DAO sbi_dao;
         try {
             sbi_dao = SBI_Transaction_Executor.generateData(username, password, false);
         } catch (Exception e) {
@@ -42,6 +42,7 @@ public class SBI_Login extends HttpServlet {
             session.setAttribute("sbi_dao", sbi_dao);
             System.out.println("setting done 2");
             RequestDispatcher requestDispatcher = request.getRequestDispatcher("sbi_account_welcome.jsp");
-            requestDispatcher.forward(request, response); }
+            requestDispatcher.forward(request, response);
+        }
     }
 }

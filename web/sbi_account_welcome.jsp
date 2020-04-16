@@ -39,6 +39,11 @@
 
 </script>
 <body>
+    <%
+        response.setHeader("Cache-Control","no-cache");
+        response.setHeader("Pragma","no-cache");
+        response.setDateHeader ("Expires", -1);
+    %>
     <div style="text-align: center">Welcome to User Page</div>
     <%
         if(session.getAttribute("sbi_dao")==null){
@@ -52,6 +57,9 @@
     Balance : <span id="message"><%=sbi_dao.getBalance()%></span><br>
     Update balance click <button type="button" id="update" onclick="ajaxAsyncRequest()">here</button><br>
     To make transaction click <a href="sbi_transaction.jsp">here</a><br>
+    <form action="<%=base_url.url%>/display" method="post">
+        <input type="submit" name="transactions" value="List transaction"> <br>
+    </form>
     <form action="<%=base_url.url%>/sbi_logout" method="post">
         <input type="submit" name="logout" value="logout"/>
     </form>

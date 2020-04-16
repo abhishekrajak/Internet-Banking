@@ -52,7 +52,14 @@
         <url-pattern>/sbi_create_account</url-pattern>
     </servlet-mapping>
     
-    
+    <servlet>
+        <servlet-name>SBI_Local_Transaction_Display</servlet-name>
+        <servlet-class>com.sbi.SBI_Local_Transaction_Display</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>SBI_Local_Transaction_Display</servlet-name>
+        <url-pattern>/display</url-pattern>
+    </servlet-mapping>
     
     <listener>
         <listener-class>com.sbi.SBI_Listener</listener-class>

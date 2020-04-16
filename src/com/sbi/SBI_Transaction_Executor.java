@@ -1,6 +1,11 @@
 package com.sbi;
 
 import java.sql.*;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Queue;
 
 class Data{
@@ -72,7 +77,34 @@ public class SBI_Transaction_Executor {
                 sql = "update customers set balance = " + receiverData.getBalance() + " where username = '" + receiverData.getUsername() + "'";
                 resultSet = statement.executeQuery(sql);
 
-                System.out.println("SECOND HALD COMPLETED");
+                System.out.println("SEconnectionD HALD COMPLETED");
+
+                sql = "insert into transaction values (?, ?, ?, ?, ?)";
+
+                Statement st = connection.createStatement();
+                ResultSet rs = st.executeQuery("select count(*) from transaction");
+                rs.next();
+                int count = rs.getInt(1);
+                count++;
+                PreparedStatement ps = connection.prepareStatement(sql);
+
+                String transaction = "transaction" + String.format("%05d", count);
+                ps.setString(1, transaction);
+                ps.setString(2, sender);
+                ps.setString(3, receiver);
+                ps.setString(4, Double.toString(amount));
+                Date date = new Date();
+                ps.setString(5, date.toString());
+                System.out.println(date.toString());
+
+                int i = ps.executeUpdate();
+
+                if(i==1){
+                    System.out.println("Transaction update done");
+                }else{
+                    System.out.println("FAILURE in transaction update");
+                }
+
                 return new Local_Transaction_Result("success");
 
             }
@@ -123,6 +155,32 @@ public class SBI_Transaction_Executor {
             throw new Exception("Database Error");
         }
         return sbi_dao;
+    }
+
+    public static synchronized LinkedList<String> getTransactions(String username){
+        System.out.println("called get Transactions with useraname " + username);
+        Connection connection;
+        LinkedList<String> list = new LinkedList<>();
+        try {
+            Class.forName("oracle.jdbc.driver.OracleDriver");
+            connection = DriverManager.getConnection(base_url.dbms_url, "c##SBI", "XXXXX");
+            Statement stmt = connection.createStatement();
+            ResultSet rs = stmt.executeQuery("select * from transaction where debit_account_id =\'" + username +
+                    "\' or credit_account_id = \'" + username + "\'");
+            while (rs.next()) {
+                String a = rs.getString("transaction_id");
+                String b = rs.getString("debit_account_id");
+                String c = rs.getString("credit_account_id");
+                String d = rs.getString("balance");
+                String e = rs.getString("transaction_date_time");
+                String data = "<tr><td>" + a + "</td><td>" + b + "</td><td>" + c + "</td><td>"+ d + "</td><td>" + e + "</td></tr>";
+                list.add(data);
+            }
+
+            }catch (Exception e){
+            System.out.println("Exception caught");
+        }
+        return list;
     }
 
 }
