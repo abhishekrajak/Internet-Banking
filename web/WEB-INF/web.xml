@@ -61,6 +61,34 @@
         <url-pattern>/display</url-pattern>
     </servlet-mapping>
     
+    <servlet>
+        <servlet-name>SBI_Global_Transaction</servlet-name>
+        <servlet-class>com.sbi.SBI_Global_Transaction</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>SBI_Global_Transaction</servlet-name>
+        <url-pattern>/sbi_global_transaction</url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
+        <servlet-name>SBI_Global_Receive</servlet-name>
+        <servlet-class>com.sbi.SBI_Global_Receive</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>SBI_Global_Receive</servlet-name>
+        <url-pattern>/receive</url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
+        <servlet-name>Captcha</servlet-name>
+        <servlet-class>com.sbi.CaptchaServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>Captcha</servlet-name>
+        <url-pattern>/captcha</url-pattern>
+    </servlet-mapping>
+
+    
     <listener>
         <listener-class>com.sbi.SBI_Listener</listener-class>
     </listener>

@@ -51,30 +51,6 @@ public class SBI_Listener implements ServletContextListener,
       /* This method is called when an attribute 
          is added to a session.
       */
-      try{
-          System.out.println("Added attribute : " + sbe.getName());
-          if(sbe.getName().equals("local_transaction_result")){
-              System.out.println("Listener caught local_transaction");
-              HttpSession session = sbe.getSession();
-              System.out.println("Got session");
-              String sender = ((SBI_DAO)session.getAttribute("sbi_dao")).getUsername();
-              System.out.println("Got sender " + sender);
-              String receiver = (String)session.getAttribute("destination");
-              System.out.println("Got receiver " + receiver);
-              Double balance = (Double) session.getAttribute("balance");
-              System.out.println("Got balance " + balance);
-              System.out.println("calling Main transaction");
-              Local_Transaction_Result local_transaction_result = SBI_Transaction_Executor.execute(sender, receiver, balance);
-              session.setAttribute("local_transaction_result", local_transaction_result);
-              System.out.println("Listener ended");
-          }else{
-              System.out.println("Other attribute added");
-          }
-
-      }catch (Exception e){
-          System.out.println("Exception : " + e.getMessage());
-      }
-
     }
 
     public void attributeRemoved(HttpSessionBindingEvent sbe) {

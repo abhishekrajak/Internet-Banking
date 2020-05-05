@@ -21,7 +21,7 @@ public class SBI_Local_Transaction_Display extends HttpServlet {
         }else {
             System.out.println("CALLING TRANSACTION");
             SBI_DAO sbi_dao = (SBI_DAO) session.getAttribute("sbi_dao");
-            list = SBI_Transaction_Executor.getTransactions(sbi_dao.getUsername());
+            list = SBI_Transaction_Executor.getTransactions(sbi_dao.getAccount_number());
         }
 
         request.getSession().setAttribute("transaction", list);

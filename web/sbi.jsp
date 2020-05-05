@@ -10,16 +10,17 @@
 <head>
     <title>SBI</title>
     <script>
-        var username, password, Submit;
+        var username, password, captcha, Submit;
         function initialise() {
             username = document.getElementById("username");
             password = document.getElementById("password");
             Submit = document.getElementById("Submit");
+            captcha = document.getElementById("captcha");
             setInterval(check, 100);
         }
 
         function check(){
-             if(username.value == "" || password.value == ""){
+             if(username.value == "" || password.value == "" || captcha.value == ""){
                  Submit.disabled = true;
              } else{
                  Submit.disabled = false;
@@ -41,9 +42,14 @@
     %>
     <form action="<%= action %>" method="post">
         Username <input id="username" name="username" type="text"><br><br>
-        Password <input id="password" name="password" type="password"><br>
-        <input id="Submit" name="Submit" type="submit">
+        Password <input id="password" name="password" type="password"><br><br>
+        <img src="http://localhost:8081/Internet-Banking/captcha"> <br><br>
+        Enter Captcha <input id="captcha" name="captcha" type="text"><br><br>
+        <input id="Submit" name="Submit" type="submit"><br><br>
+
     </form>
+
+
     <a href="create_account.jsp">Create Account</a>
     <%
         }

@@ -5,13 +5,13 @@ import java.sql.*;
 public class SBI_DAO {
     private String username;
     private String name;
-    private long account_number;
-    private double balance;
+    private float account_number;
+    private float balance;
 
     private SBI_DAO() {
     }
 
-    public SBI_DAO(String username, String name, long account_number, double balance){
+    public SBI_DAO(String username, String name, float account_number, float balance){
         this.username = username;
         this.name = name;
         this.account_number = account_number;
@@ -34,7 +34,7 @@ public class SBI_DAO {
         this.name = name;
     }
 
-    public long getAccount_number() {
+    public float getAccount_number() {
         return account_number;
     }
 
@@ -42,11 +42,11 @@ public class SBI_DAO {
         this.account_number = account_number;
     }
 
-    public double getBalance() {
+    public float getBalance() {
         return balance;
     }
 
-    public void setBalance(double balance) {
+    public void setBalance(float balance) {
         this.balance = balance;
     }
 

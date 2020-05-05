@@ -53,10 +53,11 @@
     %>
     Username :  <%=sbi_dao.getUsername()%><br>
     Name : <%=sbi_dao.getName()%><br>
-    Account No. : <%=String.format("%05d", sbi_dao.getAccount_number())%><br>
+    Account No. : <%=String.format("%05d", (int)sbi_dao.getAccount_number())%><br>
     Balance : <span id="message"><%=sbi_dao.getBalance()%></span><br>
     Update balance click <button type="button" id="update" onclick="ajaxAsyncRequest()">here</button><br>
-    To make transaction click <a href="sbi_transaction.jsp">here</a><br>
+    Intra-bank transaction click <a href="sbi_transaction.jsp">here</a><br>
+    Inter-bank transaction click <a href="sbi_global_transaction.jsp">here </a><br>
     <form action="<%=base_url.url%>/display" method="post">
         <input type="submit" name="transactions" value="List transaction"> <br>
     </form>

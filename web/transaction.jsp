@@ -21,8 +21,10 @@ username : <%
                 out.print(sbi_dao.getUsername());
             %><br>
 
-<table border=1 width=50% height=50%>
-    <tr><th>Transaction_id</th><th>Debit_Account</th><th>Credit Account</th><th>Amount</th><th>Time</th></tr>
+<table border=1 width=75% height=10%>
+    <tr><th>Transaction_id</th><th>Debit_Bank_Id</th>
+        <th>Debit_Account</th><th>Credit_Bank_Id</th><th>Credit_Account</th>
+        <th>Amount</th><th>Time</th><th>Committed</th></tr>
     <%
         int n = list.size();
         for(int i=0; i < n; i++){
