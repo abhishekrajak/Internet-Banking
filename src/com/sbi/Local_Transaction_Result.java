@@ -1,7 +1,7 @@
 package com.sbi;
 
 public class Local_Transaction_Result {
-    private String message;
+    private final String message;
 
     public Local_Transaction_Result(String mesage){
         this.message = mesage;

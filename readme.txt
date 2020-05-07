@@ -13,3 +13,7 @@
 # working on transaction management and inter-bank transfer
 
 # Create Account done
+
+# Inter-bank transfer done
+
+# CAPTCHA in login page

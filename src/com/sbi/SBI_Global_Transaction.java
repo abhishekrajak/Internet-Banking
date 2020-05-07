@@ -18,8 +18,8 @@ import java.util.*;
 @WebServlet(name = "SBI_Global_Transaction")
 public class SBI_Global_Transaction extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        float destination_account = Float.valueOf((String)request.getParameter("destination"));
-        float balance = Float.valueOf((String)request.getParameter("balance"));
+        float destination_account = Float.valueOf(request.getParameter("destination"));
+        float balance = Float.valueOf(request.getParameter("balance"));
 
 
         SBI_DAO sbi_dao = (SBI_DAO)request.getSession().getAttribute("sbi_dao");
@@ -131,8 +131,8 @@ public class SBI_Global_Transaction extends HttpServlet {
             arguments.put("function", function);
             StringJoiner sj = new StringJoiner("&");
             for(Map.Entry<String,String> entry : arguments.entrySet())
-                sj.add(URLEncoder.encode(entry.getKey(), "UTF-8") + "="
-                        + URLEncoder.encode(entry.getValue(), "UTF-8"));
+                sj.add(URLEncoder.encode(entry.getKey(), StandardCharsets.UTF_8) + "="
+                        + URLEncoder.encode(entry.getValue(), StandardCharsets.UTF_8));
             byte[] out = sj.toString().getBytes(StandardCharsets.UTF_8);
             long length = out.length;
 

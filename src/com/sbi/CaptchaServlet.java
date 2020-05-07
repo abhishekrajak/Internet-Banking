@@ -27,7 +27,7 @@ public class CaptchaServlet extends HttpServlet {
         int width = 150;
         int height = 50;
 
-        char data[][] = {
+        char[][] data = {
                 { 'x', 'o', 'x', 'o' },
                 { 'a', 'b', 'e', 'l' },
                 { 'w', 'e', 'e', 'k', 'n', 'd' },
@@ -65,7 +65,7 @@ public class CaptchaServlet extends HttpServlet {
         int index = Math.abs(r.nextInt()) % 5;
 
         String captcha = String.copyValueOf(data[index]);
-        request.getSession().setAttribute("captchaSol", captcha );
+        request.getSession().setAttribute("captchaSol", captcha);
 
         int x = 0;
         int y = 0;

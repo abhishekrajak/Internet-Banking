@@ -17,9 +17,10 @@ public class SBI_Login extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
         String captcha = request.getParameter("captcha");
-        String captchaSol = request.getParameter("captchaSol");
+        String captchaSol = (String)request.getSession().getAttribute("captchaSol");
 
         System.out.println(captcha);
+        System.out.println(captchaSol);
 
         if(!captcha.equals(captchaSol)){
             RequestDispatcher requestDispatcher = request.getRequestDispatcher("incorrectCaptcha.jsp");

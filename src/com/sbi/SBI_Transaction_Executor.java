@@ -27,9 +27,9 @@ class Global_Data{
 }
 
 public class SBI_Transaction_Executor {
-    private static String forName = "oracle.jdbc.driver.OracleDriver";
-    private static String user = base_url.user;
-    private static String password = base_url.password;
+    private static final String forName = "oracle.jdbc.driver.OracleDriver";
+    private static final String user = base_url.user;
+    private static final String password = base_url.password;
 
     public static synchronized Local_Transaction_Result execute(int sender, int receiver, float amount, String senderBank, String receiverBank, Timestamp timestamp, boolean committed)  {
         System.out.println("EXECUTOR  execute started transaction");
@@ -184,8 +184,8 @@ public class SBI_Transaction_Executor {
             Statement stmt = connection.createStatement();
             String sql = "with X as (select * from transaction where debit_account_number = " + useraccountnumber +
                     " or credit_account_number = " + useraccountnumber +
-                    " UNION " + "select * from global_transaction where ( debit_bank_id = \'" + base_url.bankId + "\' and  debit_account_number = " + useraccountnumber +
-                    ") or ( credit_bank_id = \'" + base_url.bankId + "\' and credit_account_number = " + useraccountnumber + ")) select * from X order by date_of_transaction desc " ;
+                    " UNION " + "select * from global_transaction where ( debit_bank_id = '" + base_url.bankId + "' and  debit_account_number = " + useraccountnumber +
+                    ") or ( credit_bank_id = '" + base_url.bankId + "' and credit_account_number = " + useraccountnumber + ")) select * from X order by date_of_transaction desc " ;
             System.out.println(sql);
             ResultSet rs = stmt.executeQuery(sql) ;
             while (rs.next()) {
@@ -258,7 +258,7 @@ public class SBI_Transaction_Executor {
     public static synchronized boolean commitReceiver(Global_Data global_data){
         try {
             Class.forName("oracle.jdbc.driver.OracleDriver");
-            String commitQuery = "update global_transaction set committed = \'TRUE\' where transaction_id = \'" + global_data.transaction_id + "\'";
+            String commitQuery = "update global_transaction set committed = 'TRUE' where transaction_id = '" + global_data.transaction_id + "'";
             String addBalance = "update customers set balance = balance + " + global_data.amount + " where accountnumber = " + global_data.receiver;
 
             Connection con = DriverManager.getConnection(base_url.dbms_url, user, password);
@@ -283,7 +283,7 @@ public class SBI_Transaction_Executor {
         System.out.println("commit sender called");
         try {
             Class.forName("oracle.jdbc.driver.OracleDriver");
-            String commitQuery = "update global_transaction set committed = \'TRUE\' where transaction_id = \'" + global_data.transaction_id + "\'";
+            String commitQuery = "update global_transaction set committed = 'TRUE' where transaction_id = '" + global_data.transaction_id + "'";
             Connection con = DriverManager.getConnection(base_url.dbms_url, "c##SBI", "XXXXX");
             PreparedStatement ps = con.prepareStatement(commitQuery);
             int i = ps.executeUpdate();
