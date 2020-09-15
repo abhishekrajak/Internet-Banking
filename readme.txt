@@ -14,6 +14,4 @@
 
 # Create Account done
 
-# Inter-bank transfer done
-
 # CAPTCHA in login page
