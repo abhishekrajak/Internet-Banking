@@ -10,7 +10,7 @@
 
 # intra-bank transfer done
 
-# working on transaction management and inter-bank transfer
+# working on transaction management
 
 # Create Account done
 
