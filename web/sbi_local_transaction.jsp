@@ -27,7 +27,6 @@
         }
     }
 
-
 </script>
 <body onload="initialise()">
     <%

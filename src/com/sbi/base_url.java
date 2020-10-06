@@ -5,6 +5,6 @@ public class base_url {
     public static String dbms_url = "jdbc:oracle:thin:@localhost:1521:orcl";
     public static String bankId = "sbi";
     public static String globalBank = "http://localhost:8082/Internet-Banking/receive";
-    public static String user = "c##SBI";
+    public static String user = "c##PRACTICE";
     public static String password = "XXXXX";
 }

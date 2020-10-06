@@ -32,7 +32,8 @@ public class CaptchaServlet extends HttpServlet {
                 { 'a', 'b', 'e', 'l' },
                 { 'w', 'e', 'e', 'k', 'n', 'd' },
                 { 's', 't', 'a', 'r', 'b', 'o', 'y'},
-                { 's', 'b', 'i' }
+                { 's', 'b', 'i' },
+                {'t', 'o', 's', 'u', 'y'}
         };
 
 
@@ -62,7 +63,7 @@ public class CaptchaServlet extends HttpServlet {
         g2d.setColor(new Color(255, 153, 0));
 
         Random r = new Random();
-        int index = Math.abs(r.nextInt()) % 5;
+        int index = Math.abs(r.nextInt()) % data.length;
 
         String captcha = String.copyValueOf(data[index]);
         request.getSession().setAttribute("captchaSol", captcha);

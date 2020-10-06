@@ -11,5 +11,4 @@ public class Local_Transaction_Result {
         return message;
     }
 
-
 }

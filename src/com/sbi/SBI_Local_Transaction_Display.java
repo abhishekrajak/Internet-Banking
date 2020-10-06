@@ -19,15 +19,12 @@ public class SBI_Local_Transaction_Display extends HttpServlet {
         if(session.getAttribute("sbi_dao")==null){
             response.sendRedirect("sbi_not_logged_in.jsp");
         }else {
-            System.out.println("CALLING TRANSACTION");
             SBI_DAO sbi_dao = (SBI_DAO) session.getAttribute("sbi_dao");
             list = SBI_Transaction_Executor.getTransactions(sbi_dao.getAccount_number());
         }
-
         request.getSession().setAttribute("transaction", list);
         RequestDispatcher requestDispatcher = request.getRequestDispatcher("transaction.jsp");
         requestDispatcher.forward(request, response);
-
     }
 
 }

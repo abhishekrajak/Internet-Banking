@@ -31,10 +31,9 @@
 <%--    account no.   : <input type = "number" name = "acno" required><br><br>--%>
     Enter Starting
     balance       : <input type = "number" name = "bal" required><br><br>
-    Enter password: <input type = "password" name = "password" required ><br><br>
+    Enter password: <input type = "password" name = "password" required minlength="4"><br><br>
     <input type = "submit" value = "Create Account">
-
-
 </form>
+
 </body>
 </html>

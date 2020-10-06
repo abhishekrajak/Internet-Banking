@@ -25,7 +25,10 @@ public class SBI_Global_Receive extends HttpServlet {
 //        arguments.put("function", function);
 
         String username = request.getParameter("username");
-        String password = request.getParameter("passwprd");
+        String password = request.getParameter("password");
+
+        System.out.println("username : " + username);
+        System.out.println("password : " + password);
 
         global_data.sender = Float.parseFloat(request.getParameter("sender_account"));
         global_data.receiver = Float.parseFloat(request.getParameter("receiver_account"));
@@ -44,7 +47,6 @@ public class SBI_Global_Receive extends HttpServlet {
         }else{
             System.out.println("Invalid function");
         }
-
     }
 
 }

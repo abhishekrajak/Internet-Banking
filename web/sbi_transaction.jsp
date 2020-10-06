@@ -16,7 +16,8 @@
             response.sendRedirect("sbi_not_logged_in.jsp");
         }else{
     %>
-    Local transaction click <a href="sbi_local_transaction.jsp">here</a>
+    Local transaction click <a href="sbi_local_transaction.jsp">here</a><br>
+    Global transaction click <a href="sbi_global_transaction.jsp">here</a>
     <%
         }
     %>

@@ -10,8 +10,7 @@ import java.io.IOException;
 
 @WebServlet(name = "SBI_Create_Account")
 public class SBI_Create_Account extends HttpServlet {
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
-    {
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String fname = request.getParameter("fname");
         String mname = request.getParameter("mname");
         String lname = request.getParameter("lname");

@@ -16,5 +16,4 @@ public class SBI_Logout extends HttpServlet {
         RequestDispatcher requestDispatcher = request.getRequestDispatcher("sbi.jsp");
         requestDispatcher.forward(request, response);
     }
-
 }

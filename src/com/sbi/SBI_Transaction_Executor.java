@@ -38,6 +38,7 @@ public class SBI_Transaction_Executor {
             Class.forName("oracle.jdbc.driver.OracleDriver");
             connection = DriverManager.getConnection(base_url.dbms_url, user, password);
             Statement statement = connection.createStatement();
+            connection.setAutoCommit(false);
             String sql;
             SBI_DAO senderData = null;
             boolean senderTest = false;
@@ -120,14 +121,56 @@ public class SBI_Transaction_Executor {
                 int i = ps.executeUpdate();
 
                 if(i==1){
+
+                    sql = "insert into transaction_query values(?, ?, ?, ?)";
+                    ps = connection.prepareStatement(sql);
+                    ps.setString(1, transaction);
+                    ps.setString(2, Integer.valueOf(sender).toString());
+                    ps.setString(3, Integer.toString((int) (senderData.getBalance()+(int)amount)));
+                    ps.setString(4, Integer.toString((int)senderData.getBalance()));
+
+                    System.out.println("SQL --------> " + ps);
+
+                    int j = ps.executeUpdate();
+
+                    System.out.println("j : " + j);
+
+
+                    sql = "insert into transaction_query values(?, ?, ?, ?)";
+                    ps = connection.prepareStatement(sql);
+                    ps.setString(1, transaction);
+                    ps.setString(2, Integer.valueOf(receiver).toString());
+                    ps.setString(3, Integer.toString((int) (receiverData.getBalance()-(int)amount)));
+                    ps.setString(4, Integer.toString((int)receiverData.getBalance()));
+
+                    System.out.println("SQL --------> " + ps);
+
+                    j = ps.executeUpdate();
+
+                    System.out.println("j : " + j);
+
                     return new Local_Transaction_Result("success");
+                }else{
+                    throw new Exception("DATABASE Error");
                 }
             }
         }catch (Exception e){
             System.out.println("Executor issue " + e.getLocalizedMessage() + " " + e.getMessage());
+            try{
+                connection.rollback();
+                connection = null;
+            }catch (Exception ex){
+                ex.printStackTrace();
+            }
         }finally {
             try {
-                connection.close();
+                if(connection != null){
+
+                    System.out.println("TRANSACTION IS COMMITTED");
+
+                    connection.commit();
+                    connection.close();
+                }
             } catch (SQLException e) {
                 System.out.println(e.getLocalizedMessage());
             }
@@ -182,10 +225,20 @@ public class SBI_Transaction_Executor {
             Class.forName("oracle.jdbc.driver.OracleDriver");
             connection = DriverManager.getConnection(base_url.dbms_url, user, password);
             Statement stmt = connection.createStatement();
+//            String sql = "with X as (select * from transaction where debit_account_number = " + useraccountnumber +
+//                    " or credit_account_number = " + useraccountnumber +
+//                    " UNION " + "select * from global_transaction where ( debit_bank_id = '" + base_url.bankId + "' and  debit_account_number = " + useraccountnumber +
+//                    ") or ( credit_bank_id = '" + base_url.bankId + "' and credit_account_number = " + useraccountnumber + ")) " +
+//                    "select * from X order by date_of_transaction desc " ;
+
             String sql = "with X as (select * from transaction where debit_account_number = " + useraccountnumber +
                     " or credit_account_number = " + useraccountnumber +
                     " UNION " + "select * from global_transaction where ( debit_bank_id = '" + base_url.bankId + "' and  debit_account_number = " + useraccountnumber +
-                    ") or ( credit_bank_id = '" + base_url.bankId + "' and credit_account_number = " + useraccountnumber + ")) select * from X order by date_of_transaction desc " ;
+                    ") or ( credit_bank_id = '" + base_url.bankId + "' and credit_account_number = " + useraccountnumber + ")) " +
+                    "select X.*, Y.previous_amount, Y.current_amount from X, transaction_query Y " +
+                    "where X.transaction_id = Y.transaction_id AND Y.account_number = " + useraccountnumber +
+                    " order by date_of_transaction desc ";
+
             System.out.println(sql);
             ResultSet rs = stmt.executeQuery(sql) ;
             while (rs.next()) {
@@ -196,8 +249,15 @@ public class SBI_Transaction_Executor {
                 String e = String.format("%05d", (int)rs.getFloat("credit_account_number"));
                 String f = rs.getString("amount");
                 String g = rs.getString("date_of_transaction");
+
+                String h = rs.getString("previous_amount");
+                String i = rs.getString("current_amount");
+
+                System.out.println("previous : " + h);
+                System.out.println("current : " + i);
+
                 String data = "<tr><td>" + a + "</td><td>" + b + "</td><td>" + c + "</td><td>"+ d + "</td><td>" + e +
-                        "</td><td>" + f + "</td><td>" + g + "</td></tr>";
+                        "</td><td>" + f + "</td><td>" + g + "</td><td>" + h + "</td><td>" + i + "</td></tr>";
                 list.add(data);
             }
 
@@ -228,11 +288,14 @@ public class SBI_Transaction_Executor {
 
             int i = ps.executeUpdate();
 
+            System.out.println("global update : " + i);
+
             if(i == 1) {
                 return true;
             }
         }
         catch(Exception e) {
+            System.out.println("Exception at global transaction");
             System.out.println(e.getCause() + e.getMessage() + e.toString());
         }
         return false;
@@ -257,6 +320,9 @@ public class SBI_Transaction_Executor {
 
     public static synchronized boolean commitReceiver(Global_Data global_data){
         try {
+
+            System.out.println("commit receiver is called");
+
             Class.forName("oracle.jdbc.driver.OracleDriver");
             String commitQuery = "update global_transaction set committed = 'TRUE' where transaction_id = '" + global_data.transaction_id + "'";
             String addBalance = "update customers set balance = balance + " + global_data.amount + " where accountnumber = " + global_data.receiver;
@@ -272,6 +338,8 @@ public class SBI_Transaction_Executor {
                     }
                 }
             }
+
+            System.out.println("commit receiver ended");
         }
         catch(Exception e) {
             e.printStackTrace();
@@ -356,6 +424,4 @@ public class SBI_Transaction_Executor {
         }
         return false;
     }
-
-
 }

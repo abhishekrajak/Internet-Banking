@@ -27,6 +27,27 @@
              }
         }
     </script>
+
+    <style>
+        body {background-color: powderblue;}
+        .login-page {
+            width: 360px;
+            padding: 8% 0 0;
+            margin: auto;
+        }
+        .form {
+            font-family: "Roboto", sans-serif;
+            outline: 0;
+            background: #f2f2f2;
+            width: 80%;
+            border: 0;
+            margin: 0 0 15px;
+            padding: 15px;
+            box-sizing: border-box;
+            font-size: 14px;
+        }
+    </style>
+
 </head>
 
 <body onload="initialise()">
@@ -40,14 +61,15 @@
         }else{
 
     %>
-    <form action="<%= action %>" method="post">
-        Username <input id="username" name="username" type="text"><br><br>
-        Password <input id="password" name="password" type="password"><br><br>
-        <img src="http://localhost:8081/Internet-Banking/captcha"> <br><br>
-        Enter Captcha <input id="captcha" name="captcha" type="text"><br><br>
-        <input id="Submit" name="Submit" type="submit"><br><br>
-
-    </form>
+    <div class="login-page">
+        <form class="form" action="<%= action %>" method="post">
+            Username <input id="username" name="username" type="text"><br><br>
+            Password <input id="password" name="password" type="password"><br><br>
+            <img src="http://localhost:8081/Internet-Banking/captcha"> <br><br>
+            Enter Captcha <input id="captcha" name="captcha" type="text"><br><br>
+            <input id="Submit" name="Submit" type="submit"><br><br>
+        </form>
+    </div>
 
 
     <a href="create_account.jsp">Create Account</a>
