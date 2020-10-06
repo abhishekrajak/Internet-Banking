@@ -30,10 +30,12 @@ public class CaptchaServlet extends HttpServlet {
         char[][] data = {
                 { 'x', 'o', 'x', 'o' },
                 { 'a', 'b', 'e', 'l' },
-                { 'w', 'e', 'e', 'k', 'n', 'd' },
-                { 's', 't', 'a', 'r', 'b', 'o', 'y'},
+                { 'w', 'e', 'e', 'k'},
+                { 'a', 'r', 'b', 'o', 'y'},
                 { 's', 'b', 'i' },
-                {'t', 'o', 's', 'u', 'y'}
+                {'t', 'o', 's', 'u', 'y'},
+                {'x', 'y', 'o', 'x'},
+                {'k', 'n', 'd', 'r'}
         };
 
 
