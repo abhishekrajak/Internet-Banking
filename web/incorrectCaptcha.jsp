@@ -8,9 +8,10 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    Redirect
-</head>
+<%--    Redirect--%>
+<%--</head>--%>
 <title>Redirect</title>
+<link rel="stylesheet" href="style.css">
 <script type="application/javascript">
     var x;
     var count = 5;
@@ -28,10 +29,20 @@
     }
 
 </script>
+
 </head>
-<body onload="start()">
-Incorrect Captcha <br>
-You will be redirected to sbi login page after <span id = "count"></span>&nbsp;seconds...<br>
+<body onload="start()" style=" text-align: center;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;">
+<div style="width: 100%;height: fit-content;display: flex;    justify-content: center;
+">
+<img src="error_image.png" width="50px">
+</div>
+    Incorrect Captcha <br>
+You will be redirected to sbi login page after <span  id = "count"></span>&nbsp;seconds...<br>
+<span>
 Click <a href="<%=com.sbi.base_url.url%>/sbi.jsp">here </a> to manually redirect.
-</body>
+</span></body>
 </html>

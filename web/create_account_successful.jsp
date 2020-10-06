@@ -27,7 +27,11 @@
     }
 </script>
 
-<body onload="start()">
+<body onload="start()" style=" text-align: center;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;">
 Account Created Successfully....<br>
 <%
     String username = (String)session.getAttribute("username");

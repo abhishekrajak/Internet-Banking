@@ -10,6 +10,7 @@
 <head>
     <title>Invalid destination</title>
 </head>
+<link rel="stylesheet" href="style.css">
 <script type="application/javascript">
     var x;
     var count = 5;
@@ -28,7 +29,18 @@
 
 </script>
 </head>
-<body onload="start()">
+<body onload="start()" style=" text-align: center;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;">
+
+<div style="width: 100%;height: fit-content;display: flex;    justify-content: center;
+">
+    <img src="error_image.png" width="50px">
+</div>
+
+
 Invalid destination <br>
 You will be redirected to sbi login page after <span id = "count"></span>&nbsp;seconds...<br>
 Click <a href="<%=base_url.url%>/sbi.jsp">here </a> to manually redirect.
