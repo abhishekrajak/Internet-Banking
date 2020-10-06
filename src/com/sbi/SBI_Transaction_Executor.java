@@ -61,6 +61,8 @@ public class SBI_Transaction_Executor {
                 senderData = new SBI_DAO(Username, name, account_number, balance);
             }else{
                 System.out.println("Sender data not found");
+                connection.rollback();
+                connection.close();
                 return new Local_Transaction_Result("sender not found");
             }
 
@@ -80,6 +82,9 @@ public class SBI_Transaction_Executor {
                 receiverData = new SBI_DAO(Username, name, account_number, balance);
             }
             else{
+                System.out.println("receiver data not found");
+                connection.rollback();
+                connection.close();
                 return new Local_Transaction_Result("receiver not found");
             }
 

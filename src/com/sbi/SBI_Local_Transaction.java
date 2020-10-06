@@ -43,7 +43,11 @@ public class SBI_Local_Transaction extends HttpServlet {
         }else if(message.equals("insufficient balance")){
             RequestDispatcher requestDispatcher = request.getRequestDispatcher("insufficient_balance.jsp");
             requestDispatcher.forward(request, response);
-        }else{
+        }else if(message.equals("receiver not found")){
+            RequestDispatcher requestDispatcher = request.getRequestDispatcher("invalid_destination.jsp");
+            requestDispatcher.forward(request, response);
+        }
+        else{
             RequestDispatcher requestDispatcher = request.getRequestDispatcher("sbi_account_welcome.jsp");
             requestDispatcher.forward(request, response);
         }
