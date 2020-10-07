@@ -75,9 +75,9 @@
     %>
         <form action="<%=base_url.url%>/sbi_local_transaction" method="post">
             <label >Destination Account Number</label>
-            <input name="destination" type="number"><br>
+            <input name="destination" type="number" min="0"><br>
             <label >Balance to be transferred</label>
-             <input name="balance"  type="number"><br>
+             <input name="balance"  type="number" min="0"><br>
             <input name="transfer" type="submit">
         </form>
     <%

@@ -260,8 +260,8 @@ public class SBI_Transaction_Executor {
                 String h = rs.getString("previous_amount");
                 String i = rs.getString("current_amount");
 
-                System.out.println("previous : " + h);
-                System.out.println("current : " + i);
+//                System.out.println("previous : " + h);
+//                System.out.println("current : " + i);
 
                 String data = "<tr><td>" + a + "</td><td>" + b + "</td><td>" + c + "</td><td>"+ d + "</td><td>" + e +
                         "</td><td>" + f + "</td><td>" + g + "</td><td>" + h + "</td><td>" + i + "</td></tr>";

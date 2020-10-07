@@ -124,7 +124,7 @@
                 <form class="form" action="<%= action %>" method="post">
                     Username <input id="username" name="username" type="text"><br><br>
                     Password <input id="password" name="password" type="password"><br><br>
-                    <img src="http://localhost:8081/Internet-Banking/captcha"> <br><br>
+                    <img src=<%=base_url.captcha%>> <br><br>
                     Enter Captcha <input id="captcha" name="captcha" type="text"><br><br>
                     <input id="Submit" name="Submit" type="submit"><br><br>
                 </form>

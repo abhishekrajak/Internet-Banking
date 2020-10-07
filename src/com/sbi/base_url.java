@@ -6,6 +6,8 @@ public class base_url {
     public static String bankId = "sbi";
     public static String globalBank = "http://localhost:8082/Internet-Banking_2/receive";
     public static String globalBankId = "idbi";
-    public static String user = "c##PRACTICE";
+    public static String user = "c##SBI";
     public static String password = "XXXXX";
+    public static String captcha = "http://localhost:8081/Internet-Banking/captcha";
+    public static String bankPassword = "sjh76HSn!";
 }

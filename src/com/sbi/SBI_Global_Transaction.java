@@ -24,6 +24,16 @@ public class SBI_Global_Transaction extends HttpServlet {
 
         SBI_DAO sbi_dao = (SBI_DAO)request.getSession().getAttribute("sbi_dao");
 
+        System.out.println("balance : " + sbi_dao.getBalance());
+        System.out.println("sending balance " + balance);
+
+        if(sbi_dao.getBalance() < balance ){
+            System.out.println("INSUFFICIENT");
+            RequestDispatcher requestDispatcher = request.getRequestDispatcher("insufficient_balance.jsp");
+            requestDispatcher.forward(request, response);
+            return;
+        }
+
         Global_Data global_data = new Global_Data();
         global_data.amount = balance;
         global_data.senderBank = base_url.bankId;
@@ -38,10 +48,10 @@ public class SBI_Global_Transaction extends HttpServlet {
 
         PrintWriter pw = response.getWriter();
         for(int i=0; i<5 && !status; i++){
-            pw.write("Trying to connect to Foreign Bank....\n");
+            System.out.println("Trying to connect to Foreign Bank....\n");
             status = callWebServer(global_data, "initialise");
             if(status){
-                System.out.println("Connection successfull...\nTrying to initiate the transaction...\n");
+                System.out.println("Connection successful...\nTrying to initiate the transaction...\n");
             }else{
                 System.out.println("Connection is not successful trying again attempt # : " + (i+1) + "\n");
             }
@@ -51,6 +61,7 @@ public class SBI_Global_Transaction extends HttpServlet {
             request.getSession().setAttribute("error_message", "Could not initiate the transaction try again later");
             RequestDispatcher requestDispatcher = request.getRequestDispatcher("ErrorRedirect.jsp");
             requestDispatcher.forward(request, response);
+            return;
         }
 
         System.out.println("status 1 : " + status);
@@ -67,43 +78,47 @@ public class SBI_Global_Transaction extends HttpServlet {
         }
 
         if(!status){
-            pw.write("Issue in writing transaction row in global_transaction_table");
+            System.out.println("Issue in writing transaction row in global_transaction_table");
             request.getSession().setAttribute("error_message", "Issue in writing transaction row in global_transaction_table");
             RequestDispatcher requestDispatcher = request.getRequestDispatcher("ErrorRedirect.jsp");
             requestDispatcher.forward(request, response);
+            return;
         }
 
         if(!status2){
-            pw.write("Issue in deducation of balance");
-            request.getSession().setAttribute("error_message", "Issue in deducation of balance");
+            System.out.println("Issue in deduction of balance");
+            request.getSession().setAttribute("error_message", "Issue in deduction of balance");
             RequestDispatcher requestDispatcher = request.getRequestDispatcher("ErrorRedirect.jsp");
             requestDispatcher.forward(request, response);
+            return;
         }
 
         status = callWebServer(global_data, "commit");
         System.out.println("status 2 : " + status);
 
         if(status){
-            pw.write("Foreign Bank confirmed the transaction\n");
+            System.out.println("Foreign Bank confirmed the transaction\n");
         }else{
-            pw.write("Foreign Bank did not confirm the transaction\n");
+            System.out.println("Foreign Bank did not confirm the transaction\n");
             request.getSession().setAttribute("error_message", "Foreign Bank did not confirm the transaction\n");
             RequestDispatcher requestDispatcher = request.getRequestDispatcher("ErrorRedirect.jsp");
             requestDispatcher.forward(request, response);
+            return;
         }
 
         status = SBI_Transaction_Executor.commitSender(global_data);
 
         if(status){
-            pw.write("Transaction Complete\n");
+            System.out.println("Transaction Complete\n");
         }else{
-            pw.write("Current Bank did not commit the transaction\n");
+            System.out.println("Current Bank did not commit the transaction\n");
             request.getSession().setAttribute("error_message", "Current Bank did not commit the transaction\n\n");
             RequestDispatcher requestDispatcher = request.getRequestDispatcher("ErrorRedirect.jsp");
             requestDispatcher.forward(request, response);
+            return;
         }
 
-        pw.write("TRANSACTION SUCCESSFUL\n");
+        System.out.println("TRANSACTION SUCCESSFUL\n");
         request.getSession().setAttribute("error_message", "TRANSACTION SUCCESSFUL\n");
         request.getSession().removeAttribute("error_message");
         RequestDispatcher requestDispatcher = request.getRequestDispatcher("local_transaction_successful.jsp");
@@ -121,7 +136,7 @@ public class SBI_Global_Transaction extends HttpServlet {
 
             Map<String,String> arguments = new HashMap<>();
             arguments.put("username", base_url.bankId);
-            arguments.put("password", "sjh76HSn!");
+            arguments.put("password", base_url.bankPassword);
             arguments.put("sender_account", Float.toString(global_data.sender));
             arguments.put("receiver_account", Float.toString(global_data.receiver));
             arguments.put("sender_bank", global_data.senderBank);
@@ -155,7 +170,6 @@ public class SBI_Global_Transaction extends HttpServlet {
             System.out.println("Exception caught for function : " + function);
             System.out.println(e.getCause() + e.getMessage() + e.toString());
         }
-
 
         return (status==200);
     }

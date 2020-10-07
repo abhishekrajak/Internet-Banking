@@ -77,8 +77,8 @@
             Choose a bank:<select id="bank" name="bank">
                                 <option value=<%=base_url.globalBankId%>><%=base_url.globalBankId%></option>
                           </select><br>
-            destination_account <input name="destination" type="number"><br>
-            balance to be transferred <input name="balance" type="number"><br>
+            destination_account <input name="destination" type="number" min="0"><br>
+            balance to be transferred <input name="balance" type="number" min="0"><br>
             <input name="transfer" type="submit">
         </form>
         <%

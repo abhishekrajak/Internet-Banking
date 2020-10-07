@@ -79,7 +79,7 @@
             <%
                 response.setHeader("Cache-Control","no-cache");
                 response.setHeader("Pragma","no-cache");
-                response.setDateHeader ("Expires", -1);
+//                response.setDateHeader ("Expires", -1);
             %>
             <div style="text-align: center;
     font-size: 30px;

@@ -30,6 +30,11 @@ public class SBI_Global_Receive extends HttpServlet {
         System.out.println("username : " + username);
         System.out.println("password : " + password);
 
+        if(!password.equals(base_url.bankPassword)){
+            response.setStatus(404);
+            return;
+        }
+
         global_data.sender = Float.parseFloat(request.getParameter("sender_account"));
         global_data.receiver = Float.parseFloat(request.getParameter("receiver_account"));
         global_data.senderBank = request.getParameter("sender_bank");

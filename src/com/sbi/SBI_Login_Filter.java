@@ -19,7 +19,7 @@ public class SBI_Login_Filter implements Filter {
         String username = request.getParameter("username");
         String password = request.getParameter("password");
 
-        if(username.matches("[a-z]+[0-9]*") && password.matches("[a-z]+[0-9]*")) {
+        if(username.matches("[a-z]*[0-9]*") && password.matches("[a-z]*[0-9]*")) {
             chain.doFilter(req, resp);
         }else{
             response.sendRedirect("redirect_sbi_login.jsp");

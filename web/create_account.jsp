@@ -82,7 +82,7 @@ justify-content: center;">
     First Name    : <input type = "text" name = "fname" required><br><br>
     Middle Name   : <input type = "text" name = "mname" ><br><br>
     Last Name     : <input type = "text" name = "lname" required><br><br>
-    Gender        : <input type = "radio" id = "male" name = "gender" value = "male" >
+    Gender        : <input type = "radio" id = "male" name = "gender" value = "male" required>
     <label for = "male" >Male    </label>
     <input type = "radio" id = "female" name = "gender" value = "female">
     <label for = "female">Female   </label>
@@ -94,7 +94,7 @@ justify-content: center;">
     Date of Birth : <input type = "date" name = "dob" required><br><br>
 <%--    account no.   : <input type = "number" name = "acno" required><br><br>--%>
     Enter Starting
-    balance       : <input type = "number" name = "bal" required><br><br>
+    balance       : <input type = "number" name = "bal" required min="0"><br><br>
     Enter password: <input type = "password" name = "password" required minlength="4"><br><br>
     <input type = "submit" value = "Create Account">
 </form>
