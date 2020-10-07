@@ -236,10 +236,12 @@ public class SBI_Transaction_Executor {
 //                    ") or ( credit_bank_id = '" + base_url.bankId + "' and credit_account_number = " + useraccountnumber + ")) " +
 //                    "select * from X order by date_of_transaction desc " ;
 
-            String sql = "with X as (select * from transaction where debit_account_number = " + useraccountnumber +
-                    " or credit_account_number = " + useraccountnumber +
-                    " UNION " + "select * from global_transaction where ( debit_bank_id = '" + base_url.bankId + "' and  debit_account_number = " + useraccountnumber +
-                    ") or ( credit_bank_id = '" + base_url.bankId + "' and credit_account_number = " + useraccountnumber + ")) " +
+            String sql = "with X as " +
+                    "((select * from transaction where ( debit_bank_id = '" + base_url.bankId + "' and  debit_account_number = " + useraccountnumber +
+                        ") or ( credit_bank_id = '" + base_url.bankId + "' and credit_account_number = " + useraccountnumber +
+                    ")) UNION " +
+                    "select * from global_transaction where ( debit_bank_id = '" + base_url.bankId + "' and  debit_account_number = " + useraccountnumber +
+                    ") or ( credit_bank_id = '" + base_url.bankId + "' and credit_account_number = " + useraccountnumber + "))" +
                     "select X.*, Y.previous_amount, Y.current_amount from X, transaction_query Y " +
                     "where X.transaction_id = Y.transaction_id AND Y.account_number = " + useraccountnumber +
                     " order by date_of_transaction desc ";
@@ -271,6 +273,8 @@ public class SBI_Transaction_Executor {
         }
         return list;
     }
+
+
 
     public static synchronized boolean initiate(Global_Data global_data){
         try {
@@ -314,6 +318,23 @@ public class SBI_Transaction_Executor {
             PreparedStatement ps = con.prepareStatement(addBalance);
             int i = ps.executeUpdate();
             if (i == 1) {
+//
+                String username = base_url.bankId + String.format("%05d", (int)global_data.sender);
+                System.out.println("global hold Sender + " + username);
+                SBI_DAO sbi_dao = generateData(username, "", true);
+                String sql = "insert into transaction_query values(?, ?, ?, ?)";
+                ps = con.prepareStatement(sql);
+                ps.setString(1, global_data.transaction_id);
+                ps.setString(2, Float.valueOf(global_data.sender).toString());
+                ps.setString(3, Integer.toString((int) (sbi_dao.getBalance() + global_data.amount)));
+                ps.setString(4, Integer.toString((int)sbi_dao.getBalance()));
+
+                i = ps.executeUpdate();
+
+                System.out.println("solution for global_transaction_update : " + i);
+
+//
+
                 return true;
             }
         }
@@ -339,6 +360,24 @@ public class SBI_Transaction_Executor {
                     ps = con.prepareStatement(commitQuery);
                     i = ps.executeUpdate();
                     if (i == 1) {
+
+//
+                        String username = base_url.bankId + String.format("%05d", (int)global_data.receiver);
+                        System.out.println("global commit receiver + " + username);
+                        SBI_DAO sbi_dao = generateData(username, "", true);
+                        String sql = "insert into transaction_query values(?, ?, ?, ?)";
+                        ps = con.prepareStatement(sql);
+                        ps.setString(1, global_data.transaction_id);
+                        ps.setString(2, Float.valueOf(global_data.receiver).toString());
+                        ps.setString(3, Integer.toString((int) (sbi_dao.getBalance() - global_data.amount)));
+                        ps.setString(4, Integer.toString((int)sbi_dao.getBalance()));
+
+                        i = ps.executeUpdate();
+
+                        System.out.println("solution for global_transaction_update : " + i);
+
+//
+
                         return true;
                     }
                 }
@@ -357,7 +396,7 @@ public class SBI_Transaction_Executor {
         try {
             Class.forName("oracle.jdbc.driver.OracleDriver");
             String commitQuery = "update global_transaction set committed = 'TRUE' where transaction_id = '" + global_data.transaction_id + "'";
-            Connection con = DriverManager.getConnection(base_url.dbms_url, "c##SBI", "XXXXX");
+            Connection con = DriverManager.getConnection(base_url.dbms_url, user, password);
             PreparedStatement ps = con.prepareStatement(commitQuery);
             int i = ps.executeUpdate();
             System.out.println("UPDATED # of tables : " + i);

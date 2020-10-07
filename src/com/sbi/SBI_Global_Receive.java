@@ -41,11 +41,22 @@ public class SBI_Global_Receive extends HttpServlet {
         String function = request.getParameter("function");
 
         if(function.equals("initialise")){
-            SBI_Transaction_Executor.initiate(global_data);
+            boolean status = SBI_Transaction_Executor.initiate(global_data);
+
+            if(!status){
+                response.setStatus(404);
+            }
+
         }else if(function.equals("commit")){
-            SBI_Transaction_Executor.commitReceiver(global_data);
+            boolean status = SBI_Transaction_Executor.commitReceiver(global_data);
+
+            if(!status){
+                response.setStatus(404);
+            }
+
         }else{
             System.out.println("Invalid function");
+            response.setStatus(404);
         }
     }
 

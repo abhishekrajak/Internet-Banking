@@ -1,4 +1,4 @@
-<%--
+<%@ page import="com.sbi.base_url" %><%--
   Created by IntelliJ IDEA.
   User: abhis
   Date: 19-04-2020
@@ -75,7 +75,7 @@
         %>
         <form action="<%=com.sbi.base_url.url%>/sbi_global_transaction" method="post">
             Choose a bank:<select id="bank" name="bank">
-                                <option value="idbi">IDBI</option>
+                                <option value=<%=base_url.globalBankId%>><%=base_url.globalBankId%></option>
                           </select><br>
             destination_account <input name="destination" type="number"><br>
             balance to be transferred <input name="balance" type="number"><br>

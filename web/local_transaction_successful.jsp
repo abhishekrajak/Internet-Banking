@@ -42,7 +42,7 @@
 <%--</div>--%>
 
 
-Local Transaction Successul <br>
+Transaction Successul <br>
 You will be redirected to user account page after <span id = "count"></span>&nbsp;seconds...<br>
 Click <a href="<%=base_url.url%>/sbi_account_welcome.jsp">here </a> to manually redirect.
 </body>

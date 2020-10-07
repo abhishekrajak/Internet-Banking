@@ -105,7 +105,8 @@ public class SBI_Global_Transaction extends HttpServlet {
 
         pw.write("TRANSACTION SUCCESSFUL\n");
         request.getSession().setAttribute("error_message", "TRANSACTION SUCCESSFUL\n");
-        RequestDispatcher requestDispatcher = request.getRequestDispatcher("ErrorRedirect.jsp");
+        request.getSession().removeAttribute("error_message");
+        RequestDispatcher requestDispatcher = request.getRequestDispatcher("local_transaction_successful.jsp");
         requestDispatcher.forward(request, response);
 
     }
@@ -154,6 +155,7 @@ public class SBI_Global_Transaction extends HttpServlet {
             System.out.println("Exception caught for function : " + function);
             System.out.println(e.getCause() + e.getMessage() + e.toString());
         }
+
 
         return (status==200);
     }
