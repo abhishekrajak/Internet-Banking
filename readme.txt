@@ -15,3 +15,5 @@
 # Create Account done
 
 # CAPTCHA in login page
+
+# Inter-Bank feature is working 
