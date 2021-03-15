@@ -80,6 +80,10 @@
                 response.setHeader("Cache-Control","no-cache");
                 response.setHeader("Pragma","no-cache");
 //                response.setDateHeader ("Expires", -1);
+
+//                response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate"); // HTTP 1.1
+//                response.setHeader("Pragma", "no-cache"); // HTTP 1.0
+//                response.setDateHeader("Expires", 0); // Proxies.
             %>
             <div style="text-align: center;
     font-size: 30px;
